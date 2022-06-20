@@ -1,0 +1,5 @@
+pkg/
+src/
+thunderbird-*.tar.bz2
+thunderbird-beta-bin-*.pkg.tar.zst
+
