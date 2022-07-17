@@ -2,7 +2,7 @@
 
 pkgname=discord-canary
 _pkgname=DiscordCanary
-pkgver=0.0.135
+pkgver=0.0.136
 pkgrel=1
 pkgdesc="All-in-one voice and text chat for gamers that's free and secure."
 arch=('x86_64')
@@ -14,9 +14,9 @@ optdepends=('libpulse: Pulseaudio support'
 source=("https://dl-canary.discordapp.net/apps/linux/$pkgver/$pkgname-$pkgver.tar.gz"
         'LICENSE.html::https://discordapp.com/terms'
         'OSS-LICENSES.html::https://discordapp.com/licenses')
-sha512sums=('954ef83265edbe5ff9db001836830ddb0e63fb66cc89a0f680c6b964392b37116b507f52cd0bfd8abd6495ba019ab5465c67c42e93dadf5839feb5918487cf1a'
-            '5ddf2ddbc4541405a568a5bdb4abb0babc9953b877aa37a32db0459e0ab95878946d199b153a036005ada1be900dd883c379e7a24d3ed7b1b30c006d31b54674'
-            'dc6aec7b83568130b76e4b8e77ec7b37a3eaad07f2bbe8952d04c0739e9194d4aca59e752295145c5a673f08c665fc3389558c7a3025552aeb51b636c2bacbc7')
+sha512sums=('47336d42535e167a2c8805ee0cc3eb1695a7774034aca3f6b227e764642c4d4ce5e361ceefa9c8992e87035f63901ed93e42d33db15e02a8026080957404cc92'
+            '02a77887a5ececa02e853ac99b726d494ce390e2e1214f0cffcd839434fec40649d090237dc9d1e57f2284f2ec1666826a85f77c837830d520f0734781f90cdd'
+            '8adfc97a22c5474b209d199bbf8dddb17e0fafcc4ba59ed540ffeb5c365194f7236b35abcece8af78112fa283e21d5ad0398c978e31a0133c472210819bce707')
 
 prepare() {
   cd $_pkgname
