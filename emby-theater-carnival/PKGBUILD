@@ -3,7 +3,7 @@
 pkgname=emby-theater-carnival
 pkgver=3.0.20
 _libmpv_ver=2022_12_01
-pkgrel=1
+pkgrel=18
 pkgdesc='An Electron app for Emby'
 arch=(x86_64)
 url=https://emby.media
@@ -57,7 +57,7 @@ optdepends=(
   'libcec: HDMI-CEC support'
 )
 source=(
-  'local://Emby for Linux_3.0.20_v1.6(Carnival).deb'
+  'local://Emby for Linux_3.0.20_v1.8(Carnival).deb'
   https://mediabrowser.github.io/embytools/libmpv-${_libmpv_ver}-x64.tar.xz
   emby-theater.desktop
   emby-theater.png
