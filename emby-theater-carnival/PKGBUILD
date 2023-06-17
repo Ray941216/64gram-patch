@@ -1,6 +1,6 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
-pkgname=emby-theater
+pkgname=emby-theater-carnival
 pkgver=3.0.20
 _libmpv_ver=2022_12_01
 pkgrel=1
