@@ -3,7 +3,7 @@
 pkgname=emby-theater-carnival
 pkgver=3.0.20
 _libmpv_ver=2022_12_01
-pkgrel=18
+pkgrel=20
 pkgdesc='An Electron app for Emby'
 arch=(x86_64)
 url=https://emby.media
