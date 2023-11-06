@@ -23,10 +23,10 @@ index 8178d76f8..b64c1bbc4 100644
  
  	constexpr auto kMaxLines = 3;
 diff --git a/Telegram/SourceFiles/core/click_handler_types.cpp b/Telegram/SourceFiles/core/click_handler_types.cpp
-index 8e3f03773..49cae5ad7 100644
+index b8c50b7ac..255e192d1 100644
 --- a/Telegram/SourceFiles/core/click_handler_types.cpp
 +++ b/Telegram/SourceFiles/core/click_handler_types.cpp
-@@ -331,17 +331,6 @@ void MonospaceClickHandler::onClick(ClickContext context) const {
+@@ -330,17 +330,6 @@ void MonospaceClickHandler::onClick(ClickContext context) const {
  	}
  	const auto my = context.other.value<ClickHandlerContext>();
  	if (const auto controller = my.sessionWindow.get()) {
@@ -59,10 +59,10 @@ index 5852a9606..5f95f77c8 100644
  
  void DocumentData::setInappPlaybackFailed() {
 diff --git a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
-index a99916919..31cce5fc8 100644
+index 1efc93c1d..733e15041 100644
 --- a/Telegram/SourceFiles/history/history_inner_widget.cpp
 +++ b/Telegram/SourceFiles/history/history_inner_widget.cpp
-@@ -1703,12 +1703,12 @@ void HistoryInner::mouseActionStart(const QPoint &screenPos, Qt::MouseButton but
+@@ -1755,12 +1755,12 @@ void HistoryInner::mouseActionStart(const QPoint &screenPos, Qt::MouseButton but
  							_selected.emplace(_mouseActionItem, selStatus);
  							_mouseAction = MouseAction::Selecting;
  							repaintItem(_mouseActionItem);
@@ -77,7 +77,7 @@ index a99916919..31cce5fc8 100644
  				_mouseAction = MouseAction::PrepareSelect; // start items select
  			}
  		}
-@@ -1737,8 +1737,7 @@ std::unique_ptr<QMimeData> HistoryInner::prepareDrag() {
+@@ -1789,8 +1789,7 @@ std::unique_ptr<QMimeData> HistoryInner::prepareDrag() {
  	}
  
  	const auto pressedHandler = ClickHandler::getPressed();
@@ -87,7 +87,7 @@ index a99916919..31cce5fc8 100644
  		return nullptr;
  	}
  
-@@ -1976,8 +1975,7 @@ void HistoryInner::mouseActionFinish(
+@@ -2028,8 +2027,7 @@ void HistoryInner::mouseActionFinish(
  
  	if (QGuiApplication::clipboard()->supportsSelection()
  		&& !_selected.empty()
@@ -97,7 +97,7 @@ index a99916919..31cce5fc8 100644
  		const auto [item, selection] = *_selected.cbegin();
  		if (const auto view = viewByItem(item)) {
  			TextUtilities::SetClipboardText(
-@@ -2262,7 +2260,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -2330,7 +2328,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
  	const auto addPhotoActions = [&](not_null<PhotoData*> photo, HistoryItem *item) {
  		const auto media = photo->activeMediaView();
  		const auto itemId = item ? item->fullId() : FullMsgId();
@@ -106,7 +106,7 @@ index a99916919..31cce5fc8 100644
  			_menu->addAction(tr::lng_context_save_image(tr::now), base::fn_delayed(st::defaultDropdownMenu.menu.ripple.hideDuration, this, [=] {
  				savePhotoToFile(photo);
  			}), &st::menuIconSaveImage);
-@@ -2313,7 +2311,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -2381,7 +2379,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
  				showContextInFolder(document);
  			}, &st::menuIconShowInFolder);
  		}
@@ -115,7 +115,7 @@ index a99916919..31cce5fc8 100644
  			HistoryView::AddSaveSoundForNotifications(
  				_menu,
  				item,
-@@ -2336,8 +2334,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -2404,8 +2402,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
  			not_null<HistoryItem*> item,
  			bool asGroup = true) {
  		if (item->isRegular()
@@ -125,8 +125,8 @@ index a99916919..31cce5fc8 100644
  			const auto itemId = item->fullId();
  			_menu->addAction(tr::lng_context_select_msg(tr::now), [=] {
  				if (const auto item = session->data().message(itemId)) {
-@@ -2368,8 +2365,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
- 		const auto itemId = item ? item->fullId() : FullMsgId();
+@@ -2475,8 +2472,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+ 
  		if (isUponSelected > 0) {
  			const auto selectedText = getSelectedText();
 -			if (!hasCopyRestrictionForSelected()
@@ -135,7 +135,7 @@ index a99916919..31cce5fc8 100644
  				_menu->addAction(
  					(isUponSelected > 1
  						? tr::lng_context_copy_selected_items(tr::now)
-@@ -2424,7 +2420,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -2531,7 +2527,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
  					_widget->confirmDeleteSelected();
  				}, &st::menuIconDelete);
  			}
@@ -144,16 +144,16 @@ index a99916919..31cce5fc8 100644
  				Menu::AddDownloadFilesAction(_menu, controller, _selected, this);
  			}
  			_menu->addAction(tr::lng_context_clear_selection(tr::now), [=] {
-@@ -2593,7 +2589,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
- 
+@@ -2701,7 +2697,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
  		if (isUponSelected > 0) {
+ 			addReplyAction(item);
  			const auto selectedText = getSelectedText();
 -			if (!hasCopyRestrictionForSelected() && !selectedText.empty()) {
 +			if (!selectedText.empty()) {
  				_menu->addAction(
  					((isUponSelected > 1)
  						? tr::lng_context_copy_selected_items(tr::now)
-@@ -2629,7 +2625,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -2738,7 +2734,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
  								Api::ToggleFavedSticker(controller->uiShow(), document, itemId);
  							}, isFaved ? &st::menuIconUnfave : &st::menuIconFave);
  						}
@@ -162,7 +162,7 @@ index a99916919..31cce5fc8 100644
  							_menu->addAction(tr::lng_context_save_image(tr::now), base::fn_delayed(st::defaultDropdownMenu.menu.ripple.hideDuration, this, [=] {
  								saveDocumentToFile(itemId, document);
  							}), &st::menuIconDownload);
-@@ -2656,8 +2652,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -2765,8 +2761,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
  					FillSponsoredMessagesMenu(controller, itemId, _menu);
  				}
  				if (!item->isService() && view && actionText.isEmpty()) {
@@ -172,7 +172,7 @@ index a99916919..31cce5fc8 100644
  						_menu->addAction(
  							tr::lng_context_copy_text(tr::now),
  							[=] { copyContextText(itemId); },
-@@ -2738,7 +2733,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -2847,7 +2842,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
  					_widget->confirmDeleteSelected();
  				}, &st::menuIconDelete);
  			}
@@ -181,7 +181,7 @@ index a99916919..31cce5fc8 100644
  				Menu::AddDownloadFilesAction(_menu, controller, _selected, this);
  			}
  			_menu->addAction(tr::lng_context_clear_selection(tr::now), [=] {
-@@ -2973,7 +2968,7 @@ bool HistoryInner::showCopyRestrictionForSelected() {
+@@ -3082,7 +3077,7 @@ bool HistoryInner::showCopyRestrictionForSelected() {
  }
  
  void HistoryInner::copySelectedText() {
@@ -190,7 +190,7 @@ index a99916919..31cce5fc8 100644
  		TextUtilities::SetClipboardText(getSelectedText());
  	}
  }
-@@ -3003,7 +2998,7 @@ void HistoryInner::copyContextImage(
+@@ -3112,7 +3107,7 @@ void HistoryInner::copyContextImage(
  	const auto item = session().data().message(itemId);
  	const auto media = photo->activeMediaView();
  	const auto restricted = item
@@ -199,7 +199,7 @@ index a99916919..31cce5fc8 100644
  		: IsServerMsgId(itemId.msg);
  	if (photo->isNull() || !media || !media->loaded()) {
  		return;
-@@ -3064,7 +3059,7 @@ void HistoryInner::saveContextGif(FullMsgId itemId) {
+@@ -3173,7 +3168,7 @@ void HistoryInner::saveContextGif(FullMsgId itemId) {
  
  void HistoryInner::copyContextText(FullMsgId itemId) {
  	if (const auto item = session().data().message(itemId)) {
@@ -208,7 +208,7 @@ index a99916919..31cce5fc8 100644
  			if (const auto group = session().data().groups().find(item)) {
  				TextUtilities::SetClipboardText(HistoryGroupText(group));
  			} else {
-@@ -3166,8 +3161,7 @@ void HistoryInner::keyPressEvent(QKeyEvent *e) {
+@@ -3275,8 +3270,7 @@ void HistoryInner::keyPressEvent(QKeyEvent *e) {
  		copySelectedText();
  #ifdef Q_OS_MAC
  	} else if (e->key() == Qt::Key_E
@@ -218,7 +218,7 @@ index a99916919..31cce5fc8 100644
  		TextUtilities::SetClipboardText(getSelectedText(), QClipboard::FindBuffer);
  #endif // Q_OS_MAC
  	} else if (e == QKeySequence::Delete || e->key() == Qt::Key_Backspace) {
-@@ -4100,7 +4094,7 @@ void HistoryInner::mouseActionUpdate() {
+@@ -4208,7 +4202,7 @@ void HistoryInner::mouseActionUpdate() {
  void HistoryInner::updateDragSelection(Element *dragSelFrom, Element *dragSelTo, bool dragSelecting) {
  	if (_dragSelFrom == dragSelFrom && _dragSelTo == dragSelTo && _dragSelecting == dragSelecting) {
  		return;
@@ -227,7 +227,7 @@ index a99916919..31cce5fc8 100644
  		updateDragSelection(nullptr, nullptr, false);
  		return;
  	}
-@@ -4255,7 +4249,7 @@ void HistoryInner::notifyMigrateUpdated() {
+@@ -4363,7 +4357,7 @@ void HistoryInner::notifyMigrateUpdated() {
  }
  
  void HistoryInner::applyDragSelection() {
@@ -237,10 +237,10 @@ index a99916919..31cce5fc8 100644
  	}
  }
 diff --git a/Telegram/SourceFiles/history/view/history_view_context_menu.cpp b/Telegram/SourceFiles/history/view/history_view_context_menu.cpp
-index c9787b5e9..644fd5884 100644
+index 0c8139f53..cf7070216 100644
 --- a/Telegram/SourceFiles/history/view/history_view_context_menu.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_context_menu.cpp
-@@ -155,7 +155,7 @@ void AddPhotoActions(
+@@ -156,7 +156,7 @@ void AddPhotoActions(
  		HistoryItem *item,
  		not_null<ListWidget*> list) {
  	const auto contextId = item ? item->fullId() : FullMsgId();
@@ -249,7 +249,7 @@ index c9787b5e9..644fd5884 100644
  		menu->addAction(
  			tr::lng_context_save_image(tr::now),
  			base::fn_delayed(
-@@ -165,7 +165,7 @@ void AddPhotoActions(
+@@ -166,7 +166,7 @@ void AddPhotoActions(
  			&st::menuIconSaveImage);
  		menu->addAction(tr::lng_context_copy_image(tr::now), [=] {
  			const auto item = photo->owner().message(contextId);
@@ -258,7 +258,7 @@ index c9787b5e9..644fd5884 100644
  				CopyImage(photo);
  			}
  		}, &st::menuIconCopy);
-@@ -222,7 +222,7 @@ void AddSaveDocumentAction(
+@@ -223,7 +223,7 @@ void AddSaveDocumentAction(
  		HistoryItem *item,
  		not_null<DocumentData*> document,
  		not_null<ListWidget*> list) {
@@ -267,7 +267,7 @@ index c9787b5e9..644fd5884 100644
  		return;
  	}
  	const auto origin = item ? item->fullId() : FullMsgId();
-@@ -317,7 +317,7 @@ void AddDocumentActions(
+@@ -318,7 +318,7 @@ void AddDocumentActions(
  			std::move(callback),
  			&st::menuIconStickers);
  	}
@@ -276,7 +276,7 @@ index c9787b5e9..644fd5884 100644
  		const auto controller = list->controller();
  		AddSaveSoundForNotifications(menu, item, document, controller);
  	}
-@@ -1224,13 +1224,12 @@ base::unique_qptr<Ui::PopupMenu> FillContextMenu(
+@@ -1232,13 +1232,12 @@ base::unique_qptr<Ui::PopupMenu> FillContextMenu(
  		AddWhoReactedAction(result, list, item, list->controller());
  	}
  	if (request.overSelection
@@ -291,7 +291,7 @@ index c9787b5e9..644fd5884 100644
  				TextUtilities::SetClipboardText(list->getSelectedText());
  			}
  		}, &st::menuIconCopy);
-@@ -1266,11 +1265,11 @@ base::unique_qptr<Ui::PopupMenu> FillContextMenu(
+@@ -1274,11 +1273,11 @@ base::unique_qptr<Ui::PopupMenu> FillContextMenu(
  			AddDocumentActions(result, document, view->data(), list);
  		}
  		if (!link && (view->hasVisibleText() || mediaHasTextForCopy)) {
@@ -306,10 +306,10 @@ index c9787b5e9..644fd5884 100644
  								if (const auto group = owner->groups().find(item)) {
  									TextUtilities::SetClipboardText(HistoryGroupText(group));
 diff --git a/Telegram/SourceFiles/history/view/history_view_list_widget.cpp b/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
-index 65e4f084a..8b52fe040 100644
+index f9876fecd..ea4861068 100644
 --- a/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
-@@ -1327,7 +1327,7 @@ void ListWidget::cancelSelection() {
+@@ -1336,7 +1336,7 @@ void ListWidget::cancelSelection() {
  }
  
  void ListWidget::selectItem(not_null<HistoryItem*> item) {
@@ -318,7 +318,7 @@ index 65e4f084a..8b52fe040 100644
  		return;
  	} else if (const auto view = viewForItem(item)) {
  		clearTextSelection();
-@@ -1340,7 +1340,7 @@ void ListWidget::selectItem(not_null<HistoryItem*> item) {
+@@ -1349,7 +1349,7 @@ void ListWidget::selectItem(not_null<HistoryItem*> item) {
  }
  
  void ListWidget::selectItemAsGroup(not_null<HistoryItem*> item) {
@@ -327,7 +327,7 @@ index 65e4f084a..8b52fe040 100644
  		return;
  	} else if (const auto view = viewForItem(item)) {
  		clearTextSelection();
-@@ -2280,7 +2280,7 @@ bool ListWidget::eventHook(QEvent *e) {
+@@ -2286,7 +2286,7 @@ bool ListWidget::eventHook(QEvent *e) {
  }
  
  void ListWidget::applyDragSelection() {
@@ -336,7 +336,7 @@ index 65e4f084a..8b52fe040 100644
  		applyDragSelection(_selected);
  	}
  	clearDragSelection();
-@@ -2441,15 +2441,11 @@ void ListWidget::keyPressEvent(QKeyEvent *e) {
+@@ -2447,15 +2447,11 @@ void ListWidget::keyPressEvent(QKeyEvent *e) {
  			_delegate->listCancelRequest();
  		}
  	} else if (e == QKeySequence::Copy
@@ -354,7 +354,7 @@ index 65e4f084a..8b52fe040 100644
  		TextUtilities::SetClipboardText(getSelectedText(), QClipboard::FindBuffer);
  #endif // Q_OS_MAC
  	} else if (e == QKeySequence::Delete || e->key() == Qt::Key_Backspace) {
-@@ -2923,8 +2919,7 @@ void ListWidget::leaveEventHook(QEvent *e) {
+@@ -2935,8 +2931,7 @@ void ListWidget::leaveEventHook(QEvent *e) {
  
  void ListWidget::updateDragSelection() {
  	if (!_overState.itemId
@@ -364,7 +364,7 @@ index 65e4f084a..8b52fe040 100644
  		clearDragSelection();
  		return;
  	} else if (_items.empty() || !_overElement || !_selectEnabled) {
-@@ -3130,7 +3125,7 @@ void ListWidget::mouseActionStart(
+@@ -3142,7 +3137,7 @@ void ListWidget::mouseActionStart(
  	} else if (hasSelectedItems()) {
  		if (overSelectedItems()) {
  			_mouseAction = MouseAction::PrepareDrag;
@@ -373,7 +373,7 @@ index 65e4f084a..8b52fe040 100644
  			_mouseAction = MouseAction::PrepareSelect;
  		}
  	}
-@@ -3175,7 +3170,7 @@ void ListWidget::mouseActionStart(
+@@ -3187,7 +3182,7 @@ void ListWidget::mouseActionStart(
  							_mouseTextSymbol,
  							_mouseTextSymbol));
  						_mouseAction = MouseAction::Selecting;
@@ -382,7 +382,7 @@ index 65e4f084a..8b52fe040 100644
  						_mouseAction = MouseAction::PrepareSelect;
  					}
  				}
-@@ -3304,8 +3299,7 @@ void ListWidget::mouseActionFinish(
+@@ -3316,8 +3311,7 @@ void ListWidget::mouseActionFinish(
  
  	if (QGuiApplication::clipboard()->supportsSelection()
  		&& _selectedTextItem
@@ -392,7 +392,7 @@ index 65e4f084a..8b52fe040 100644
  		if (const auto view = viewForItem(_selectedTextItem)) {
  			TextUtilities::SetClipboardText(
  				view->selectedText(_selectedTextRange),
-@@ -3553,8 +3547,7 @@ std::unique_ptr<QMimeData> ListWidget::prepareDrag() {
+@@ -3565,8 +3559,7 @@ std::unique_ptr<QMimeData> ListWidget::prepareDrag() {
  		return nullptr;
  	}
  	auto pressedHandler = ClickHandler::getPressed();
@@ -403,10 +403,10 @@ index 65e4f084a..8b52fe040 100644
  	}
  
 diff --git a/Telegram/SourceFiles/history/view/media/history_view_document.cpp b/Telegram/SourceFiles/history/view/media/history_view_document.cpp
-index 94afc75b0..746c21c61 100644
+index 8af96447a..4c1356271 100644
 --- a/Telegram/SourceFiles/history/view/media/history_view_document.cpp
 +++ b/Telegram/SourceFiles/history/view/media/history_view_document.cpp
-@@ -873,7 +873,6 @@ void Document::ensureDataMediaCreated() const {
+@@ -878,7 +878,6 @@ void Document::ensureDataMediaCreated() const {
  
  bool Document::downloadInCorner() const {
  	return _data->isAudioFile()
@@ -415,7 +415,7 @@ index 94afc75b0..746c21c61 100644
  		&& !_data->inappPlaybackFailed();
  }
 diff --git a/Telegram/SourceFiles/history/view/media/history_view_gif.cpp b/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
-index 99626796f..0d6b146e4 100644
+index 9ca0857f6..89b5a009a 100644
 --- a/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
 +++ b/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
 @@ -330,7 +330,6 @@ void Gif::validateRoundingMask(QSize size) const {
@@ -474,10 +474,10 @@ index 11bab55d1..bc963bcae 100644
  	}
  	clearDragSelection();
 diff --git a/Telegram/SourceFiles/media/view/media_view_overlay_widget.cpp b/Telegram/SourceFiles/media/view/media_view_overlay_widget.cpp
-index 65177adb4..6d0b4df0f 100644
+index b0436b197..bd4982d8b 100644
 --- a/Telegram/SourceFiles/media/view/media_view_overlay_widget.cpp
 +++ b/Telegram/SourceFiles/media/view/media_view_overlay_widget.cpp
-@@ -1519,7 +1519,7 @@ void OverlayWidget::fillContextMenuActions(const MenuCallback &addAction) {
+@@ -1533,7 +1533,7 @@ void OverlayWidget::fillContextMenuActions(const MenuCallback &addAction) {
  			[=] { showInFolder(); },
  			&st::mediaMenuIconShowInFolder);
  	}
@@ -486,7 +486,7 @@ index 65177adb4..6d0b4df0f 100644
  		if ((_document && documentContentShown()) || (_photo && _photoMedia->loaded())) {
  			addAction(
  				tr::lng_mediaview_copy(tr::now),
-@@ -1570,7 +1570,7 @@ void OverlayWidget::fillContextMenuActions(const MenuCallback &addAction) {
+@@ -1584,7 +1584,7 @@ void OverlayWidget::fillContextMenuActions(const MenuCallback &addAction) {
  			[=] { deleteMedia(); },
  			&st::mediaMenuIconDelete);
  	}
@@ -495,7 +495,7 @@ index 65177adb4..6d0b4df0f 100644
  		addAction(
  			tr::lng_mediaview_save_as(tr::now),
  			[=] { saveAs(); },
-@@ -2328,9 +2328,9 @@ void OverlayWidget::notifyFileDialogShown(bool shown) {
+@@ -2342,9 +2342,9 @@ void OverlayWidget::notifyFileDialogShown(bool shown) {
  }
  
  void OverlayWidget::saveAs() {
@@ -507,7 +507,7 @@ index 65177adb4..6d0b4df0f 100644
  		Assert(_stories != nullptr);
  		showPremiumDownloadPromo();
  		return;
-@@ -2470,7 +2470,7 @@ void OverlayWidget::downloadMedia() {
+@@ -2484,7 +2484,7 @@ void OverlayWidget::downloadMedia() {
  		return;
  	} else if (Core::App().settings().askDownloadPath()) {
  		return saveAs();
@@ -516,7 +516,7 @@ index 65177adb4..6d0b4df0f 100644
  		if (_stories && !hasCopyMediaRestriction(true)) {
  			showPremiumDownloadPromo();
  		}
-@@ -2692,7 +2692,7 @@ void OverlayWidget::showMediaOverview() {
+@@ -2706,7 +2706,7 @@ void OverlayWidget::showMediaOverview() {
  }
  
  void OverlayWidget::copyMedia() {
@@ -526,10 +526,10 @@ index 65177adb4..6d0b4df0f 100644
  	}
  	_dropdown->hideAnimated(Ui::DropdownMenu::HideOption::IgnoreShow);
 diff --git a/Telegram/SourceFiles/overview/overview_layout.cpp b/Telegram/SourceFiles/overview/overview_layout.cpp
-index 2101118fc..ddd008de4 100644
+index 9f5ce3199..3fa0c092b 100644
 --- a/Telegram/SourceFiles/overview/overview_layout.cpp
 +++ b/Telegram/SourceFiles/overview/overview_layout.cpp
-@@ -1059,7 +1059,6 @@ Document::Document(
+@@ -1061,7 +1061,6 @@ Document::Document(
  
  bool Document::downloadInCorner() const {
  	return _data->isAudioFile()
