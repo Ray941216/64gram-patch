@@ -1,6 +1,6 @@
 pkgname=64gram-desktop-modded
 _pkgname=64Gram
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 epoch=1
 pkgdesc='Unofficial desktop version of Telegram messaging app'
@@ -23,7 +23,7 @@ source=("disable-anti-forward.patch"
 	"io.github.tdesktop_x64.TDesktop.desktop"
         "https://download.gnome.org/sources/glibmm/2.77/glibmm-2.77.0.tar.xz"
 )
-sha512sums=('00fb74b0255d09a68110eaa4c46930b8137ac744918f764208d98792b00b8518c12b3573573e97a5975d139dfa9ccfc4a456405bb514baf50f25a4e18e29e2f7'
+sha512sums=('4e410ee80edbadfc7077fc0f0b94b678603181387761e722b364226f365ea5882b385b60b5e2235b7d4cf8cb109e2c10c0d23f6cd9cc35ded71c6324cf5b347c'
             'a2a602fb97f4db649e2b937c1081d4c3c62a0ad558f1d3171744c9d731bcbb911f6e8dab14fd399c8e7182557d2bf7fcd0c263a4beac69d9060c3a9e1ac664f1'
             '6650e822de2529582d93291025500afb6a182a0c5a564f656f164d79d8765bb4ca9c9d16227148431cc71c2677923b9364e81bbd4ca4f07f68e36bb380fb9574')
 
